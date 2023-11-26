@@ -3,6 +3,7 @@ import { createCanvas, loadImage } from 'canvas'
 export default class FileService {
 
   static async convert(base64, name) {
+    base64 = base64.split('base64,')[1]
     return await new Promise((resolve) =>{
       loadImage(Buffer.from(base64, "base64")).then(async (img) => {
         const canvas = createCanvas(img.width, img.height, 'pdf');
