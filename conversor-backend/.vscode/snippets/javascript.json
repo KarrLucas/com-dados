@@ -1,0 +1,189 @@
+{
+	"build-repository": {
+		"scope": "dart,flutter",
+		"prefix": "repo",
+		"body": [
+			"import 'package:plannie_app/app/data/api/api_result.dart';",
+			"import 'package:plannie_app/app/data/api/auth.dart';\n",
+			"class ${1}Repository {",
+			"\tfinal Auth auth;\n",
+			"\t${1}Repository(this.auth);",
+			"\n}"
+		],
+		"description": "Log output to console"
+	},
+	"api-result-function": {
+		"scope": "dart,flutter",
+		"prefix": "apires",
+		"body": [
+			"Future<ApiResult<${1}>> ${2}() async {",
+			"    try {",
+			"        return const ApiResult.success();",
+			"    } catch (e) {",
+			"        return ApiResult.failure(NetworkExceptions.getDioException(e));",
+			"    }",
+			"}"
+		],
+		"description": "Log output to console"
+	},
+	"api-result-handling": {
+		"scope": "dart,flutter",
+		"prefix": "result",
+		"body": [
+			"result.when(",
+			"    success: (data) {",
+			"${1}",
+			"    },",
+			"    failure: (error) {",
+			"       hasError = true;",
+			"       AppSnackBar.showErrorSnackbar(NetworkExceptions.getErrorMessage(error));",
+			"    },",
+			");"
+		],
+		"description": "Log output to console"
+	},
+	"mongoose-model": {
+		"scope": "javascript",
+		"prefix": "model",
+		"body": [
+			"import mongoose from 'mongoose';",
+			"",
+			"const ${1}Model = new mongoose.Schema(",
+			"   {",
+			"     status: { type: String, enum: ['active', 'inactive'], default: 'active', required: true }",
+			"   },",
+			"   { timestamps: true },",
+			");",
+			"",
+			"${1}Model.set('toJSON', {",
+			"   virtuals: true",
+			"});",
+			"",
+			"export default mongoose.model('${1}', ${1}Model);"
+		],
+		"description": "Log output to console"
+	},
+	"console-log": {
+		"scope": "javascript",
+		"prefix": "log",
+		"body": [
+			"console.log(${1});"
+		],
+		"description": "Log output to console"
+	},
+	"api-route-file": {
+		"scope": "javascript",
+		"prefix": "routes",
+		"body": [
+			"import { Router } from 'express';",
+			"import ErrorModel from 'rox-lib/error_handler/error_model.js';",
+			"",
+			"const route = Router();",
+			"",
+			"export default (app) => {",
+			"\tapp.use('/${1}', route);",
+			"};"
+		],
+		"description": "Log output to console"
+	},
+	"api-route": {
+		"scope": "javascript",
+		"prefix": "route",
+		"body": [
+			"    route.${1|get,post,put,delete|}('/${2}', async (req, res) => {",
+			"        try {",
+			"",
+			"            res.status(200);",
+			"        } catch (error) {",
+			"            console.error('Erro na rota ${2} em $TM_FILENAME_BASE: ' + error);",
+			"            ErrorModel.resolveError(res, error);",
+			"        }",
+			"    });"
+		],
+		"description": "Log output to console"
+	},
+
+	"sizedbox": {
+		"scope": "dart,flutter",
+		"prefix": "sized",
+		"body": [
+			"const SizedBox(${1}),"
+		],
+		"description": "create sized box"
+	},
+
+	"console-time": {
+		"scope": "javascript",
+		"prefix": "time",
+		"body": [
+			"console.time('${1}')",
+			"console.timeEnd('${1}')"
+		],
+		"description": "create sized box"
+	},
+
+	"repository": {
+		"scope": "javascript",
+		"prefix": "repo",
+		"body": [
+		  "import ${2:${1/(.*)/${1:/capitalize}/}}Model from '../models/${1}Model.js'",
+		  "",
+		  "export default class ${2}Repository {",
+		  "    static async create(${1}) {",
+		  "        return await ${2}Model.create(${1});",
+		  "    }",
+		  "    ",
+		  "    static async getById(${1}Id){",
+		  "        return await ${2}Model.findById(${1}Id);",
+		  "    }",
+		  "",
+		  "    static async getAll() {",
+		  "        return await ${2}Model.find({ status: 'active' });",
+		  "    }",
+		  "",
+		  "    static async inactivate(id) {",
+		  "        return await ${2}Model.findByIdAndUpdate(id, { $$set: { status: 'inactive' } }, { new: true });",
+		  "    }",
+		  "    ",
+		  "    static async update(${1}Id, ${1}) {",
+		  "        delete ${1}._id;",
+		  "        ",
+		  "        return await ${2}Model.findByIdAndUpdate(${1}Id, ${1}, { new: true });",
+		  "    }",
+		  "}"
+		],
+		"description": "create repository"
+	  },
+	  "servicce": {
+		"scope": "javascript",
+		"prefix": "service",
+		"body": [
+		  "import ErrorModel from 'rox-lib/error_handler/error_model.js';",
+		  "import ${2:${1/(.*)/${1:/capitalize}/}}Repository from \"../repositories/${1}Repository.js\";",
+		  "",
+		  "",
+		  "export default class ${2}Service {",
+		  "    static async create(${1}){",
+		  "        return await ${2}Repository.create(${1});",
+		  "    }",
+		  "",
+		  "    static async getAll(){",
+		  "        return await ${2}Repository.getAll();",
+		  "    }",
+		  "",
+		  "    static async getById(${1}Id){",
+		  "        return await ${2}Repository.getById(${1}Id);",
+		  "    }",
+		  "    ",
+		  "    static async inactivate(${1}Id){",
+		  "        return await ${2}Repository.inactivate(${1}Id);",
+		  "    }",
+		  "    ",
+		  "    static async update(${1}){",
+		  "        return await ${2}Repository.update(${1}._id, ${1});",
+		  "    }",
+		  "}"
+		],
+		"description": ""
+	  }
+}

@@ -1,0 +1,13 @@
+{
+    "x": [
+        "src/api/",
+        "src/config/",
+        "src/error_handler/",
+        "src/log/",
+        "test/",
+        "src/mocks/",
+        "src/models/",
+        "src/loaders/",
+        "src/repositories/mocks/"
+    ]
+}
