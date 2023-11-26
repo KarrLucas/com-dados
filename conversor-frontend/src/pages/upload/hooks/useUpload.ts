@@ -45,6 +45,11 @@ const useUpload = () => {
         a.href = url;
         a.target = '_self';
         a.click();
+
+        setTimeout(function () {
+            a.remove();
+            URL.revokeObjectURL(url);
+        }, 100);
     }
 
 
