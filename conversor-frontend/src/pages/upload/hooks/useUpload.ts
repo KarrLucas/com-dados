@@ -29,12 +29,14 @@ const useUpload = () => {
     });
 
     const onUpload = async () => {
+        console.time('CONVERT')
         setLoading(true)
         const fileBase64 = await toBase64(file);
         const response = await api.post('/file/convert', { base64: fileBase64, name: file?.name }, {
             responseType: 'blob',
         })
         download(response.data)
+        console.timeEnd('CONVERT')
         setLoading(false)
     }
 
