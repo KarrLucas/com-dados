@@ -8,7 +8,7 @@ export default class Config {
 
     static server = {
         baseUrl: process.env.SERVER_BASE_URL,
-        port: process.env.PORT,
+        port: "2020",
     };
 
 };
