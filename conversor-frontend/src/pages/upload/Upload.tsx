@@ -16,7 +16,7 @@ export default function Upload(){
 
     return(
         <Page 
-            title='Conversor de Imgens'
+            title='Upload'
             sx={{
                 backgroundColor: 'wheat',
                 height: '100vh'
